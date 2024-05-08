@@ -1,4 +1,7 @@
-from Enemy import *
+from Zombie import *
 
-zombie = Enemy('Zombie')
-zombie.print_info()
+enemy = Zombie()
+
+enemy.print_info()
+
+enemy.talk()
