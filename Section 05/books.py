@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Body
 
 app = FastAPI()
 
@@ -34,6 +34,22 @@ Books = [
         'year': 1999,
         'publisher': 'Bantam Books',
         'isbn': '978-0553819571'
+    },
+    {
+        'title': 'Gardens of the Moon',
+        'author': 'Steven Erikson',
+        'category': 'Fantasy',
+        'year': 1999,
+        'publisher': 'Bantam Books',
+        'isbn': '978-0553819571'
+    },
+    {
+        'title': 'The Enchanted Forest',
+        'author': 'Helena York',
+        'category': 'Fantasy',
+        'year': 2018,
+        'publisher': 'Mythical Press',
+        'isbn': '200-1234567890'
     }
 ]
 
@@ -54,9 +70,16 @@ async def get_book_by_index(index: int):
 
 # Query Params
 @app.get("/books/")
-async def get_book_by_category(category: str):
+async def get_books_by_category(category: str):
     books_to_return = []
     for book in Books:
         if book.get('category').casefold() == category.casefold():
             books_to_return.append(book)
     return books_to_return
+
+
+@app.post("/books/add_book")
+async def add_new_book(new_book=Body()):
+    Books.append(new_book)
+    print(new_book)
+    return "Book added successfully"
