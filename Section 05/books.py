@@ -4,52 +4,52 @@ app = FastAPI()
 
 Books = [
     {
-        'title': 'Mystery of the Ancient Ruins',
-        'author': 'Clara Bell',
-        'category': 'Mystery',
-        'year': 2019,
-        'publisher': 'Adventure Press',
-        'isbn': '987-6543210987'
+        "title": "Mystery of the Ancient Ruins",
+        "author": "Clara Bell",
+        "category": "Mystery",
+        "year": 2019,
+        "publisher": "Adventure Press",
+        "isbn": "987-6543210987"
     },
     {
-        'title': 'The Last of the Sky Pirates',
-        'author': 'Eliot Reed',
-        'category': 'Fantasy',
-        'year': 2023,
-        'publisher': 'Skybound Books',
-        'isbn': '564-7382910564'
+        "title": "The Last of the Sky Pirates",
+        "author": "Eliot Reed",
+        "category": "Fantasy",
+        "year": 2023,
+        "publisher": "Skybound Books",
+        "isbn": "564-7382910564"
     },
     {
-        'title': 'Quantum Web',
-        'author': 'Lara Joyce',
-        'category': 'Science Fiction',
-        'year': 2022,
-        'publisher': 'Future Worlds',
-        'isbn': '348-1122334456'
+        "title": "Quantum Web",
+        "author": "Lara Joyce",
+        "category": "Science Fiction",
+        "year": 2022,
+        "publisher": "Future Worlds",
+        "isbn": "348-1122334456"
     },
     {
-        'title': 'Gardens of the Moon',
-        'author': 'Steven Erikson',
-        'category': 'Fantasy',
-        'year': 1999,
-        'publisher': 'Bantam Books',
-        'isbn': '978-0553819571'
+        "title": "Gardens of the Moon",
+        "author": "Steven Erikson",
+        "category": "Fantasy",
+        "year": 1999,
+        "publisher": "Bantam Books",
+        "isbn": "978-0553819571"
     },
     {
-        'title': 'Gardens of the Moon',
-        'author': 'Steven Erikson',
-        'category': 'Fantasy',
-        'year': 1999,
-        'publisher': 'Bantam Books',
-        'isbn': '978-0553819571'
+        "title": "Gardens of the Moon",
+        "author": "Steven Erikson",
+        "category": "Fantasy",
+        "year": 1999,
+        "publisher": "Bantam Books",
+        "isbn": "978-0553819571"
     },
     {
-        'title': 'The Enchanted Forest',
-        'author': 'Helena York',
-        'category': 'Fantasy',
-        'year': 2018,
-        'publisher': 'Mythical Press',
-        'isbn': '200-1234567890'
+        "title": "The Enchanted Forest",
+        "author": "Helena York",
+        "category": "Fantasy",
+        "year": 2018,
+        "publisher": "Mythical Press",
+        "isbn": "200-1234567890"
     }
 ]
 
@@ -83,3 +83,12 @@ async def add_new_book(new_book=Body()):
     Books.append(new_book)
     print(new_book)
     return "Book added successfully"
+
+
+@app.put("/books/update_book")
+async def update_book(updated_book=Body()):
+    for i in range(len(Books)):
+        if Books[i].get('title').casefold() == updated_book.get('title').casefold():
+            Books[i] = updated_book
+            print(Books[i])
+    return updated_book
