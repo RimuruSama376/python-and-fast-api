@@ -68,6 +68,16 @@ async def get_book_by_index(index: int):
     return "Invalid Index"
 
 
+@app.get('/books/get_books_by_author/')
+async def get_book_by_author(author: str):
+    print(author)
+    result = []
+    for book in Books:
+        if book.get('author').casefold() == author.casefold():
+            result.append(book)
+    return result
+
+
 # Query Params
 @app.get("/books/")
 async def get_books_by_category(category: str):
@@ -92,3 +102,11 @@ async def update_book(updated_book=Body()):
             Books[i] = updated_book
             print(Books[i])
     return updated_book
+
+
+@app.delete("/books/update_book")
+async def delete_book(book=Body()):
+    for i in range(len(Books)):
+        if Books[i].get('title').casefold() == book.get('title').casefold():
+            Books.pop(i)
+    return book
